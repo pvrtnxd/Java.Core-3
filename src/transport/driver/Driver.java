@@ -1,4 +1,4 @@
-package driver;
+package transport.driver;
 
 public abstract class Driver {
 
