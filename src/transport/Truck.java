@@ -8,33 +8,56 @@ import java.util.Arrays;
 public class Truck extends Transport<DriverC>{
 
     public enum LoadCapacity {
-        N1("с полной массой до 3,5 тонн"),
-        N2("с полной массой свыше 3,5 до 12 тонн"),
-        N3("с полной массой свыше 12 тонн");
+        N1(null, 3.5f),
+        N2(3.5f, 12f),
+        N3(12f, null);
+        private final Float lowerBound;
+        private final Float upperBound;
 
-        private final String loadC;
 
-        LoadCapacity (String loadC) {
-            this.loadC = loadC;
+        LoadCapacity(Float lowerBound, Float upperBound) {
+            this.lowerBound = lowerBound;
+            this.upperBound = upperBound;
         }
 
-        public String getLoad() {
-            return loadC;
-        }
+        public static LoadCapacity findByLoad(Float load) {
+            Float min;
+            Float max;
+            for (LoadCapacity loadCapacity1 : values()) {
+                min = loadCapacity1.getLowerBound() == null ? min = 0f : loadCapacity1.getLowerBound();
+                max = loadCapacity1.getUpperBound() == null ? max = 100f : loadCapacity1.getUpperBound();
 
-        /*public String toString() {
-            String low = "от" + lowerBound;
-            if (lowerBound == 0) {
-                low = "";
+                if (min <= load && load <= max) {
+                    return loadCapacity1;
+                }
             }
-
-            String upp = "до" + upperBound;
-            if (upperBound == 0) {
-                upp = "";
-            }
-            return "Грузоподъемность - " + low + upp + " тонн";
-*/
+            return null;
         }
+
+        public String toString() {
+            if (upperBound == null) {
+                return "Грузоподъемность: от " +
+                        lowerBound + " тонн";
+            } else if (lowerBound == null) {
+                return "Грузоподъемность: до "
+                        + upperBound + " тонн";
+            } else {
+                return "Грузоподъемность: от " +
+                        lowerBound + " тонн " +
+                        "до " + upperBound + " тонн";
+            }
+        }
+
+        public Float getLowerBound() {
+            return lowerBound;
+        }
+
+        public Float getUpperBound() {
+            return upperBound;
+        }
+    }
+
+    private LoadCapacity loadCapacity;
 
 
 
@@ -46,6 +69,22 @@ public class Truck extends Transport<DriverC>{
                 double engineVolume,
                 DriverC driverC) {
         super(brand, model, engineVolume, driverC);
+    }
+
+    public String printType() {
+        if (loadCapacity != null) {
+            return loadCapacity.toString();
+        } else {
+            return "Данных по транспортному средству недостаточно";
+        }
+    }
+
+    public LoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(Float loadCapacity) {
+        this.loadCapacity = LoadCapacity.findByLoad(loadCapacity);
     }
 
     public void startMove() {

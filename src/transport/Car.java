@@ -24,11 +24,26 @@ public class Car extends Transport<DriverB> {
         this.bodyType = bodyType;
         }
 
+        public static BodyType findByBodyType(String bodyType) {
+            for (BodyType type : values()) {
+                if(type.getBodyType().equals(bodyType)) {
+                    return type;
+                }
+            }
+            return null;
+        }
+
         public String getBodyType() {
             return bodyType;
         }
-    }
 
+        @Override
+        public String toString() {
+            return "Тип кузова: "
+                    + bodyType;
+        }
+    }
+      private BodyType bodyType;
     public void printType(String bodyType) {
         if (bodyType == null) {
             System.out.println("Данных по транспортному средству недостаточно");
@@ -40,6 +55,14 @@ public class Car extends Transport<DriverB> {
     public Car(String brand, String model, double engineVolume, DriverB driverB) {
 
         super(brand, model, engineVolume, driverB);
+    }
+
+    public BodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(String type) {
+        this.bodyType = BodyType.findByBodyType(type);
     }
 
     public void startMove() {

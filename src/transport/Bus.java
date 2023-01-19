@@ -10,39 +10,68 @@ import java.util.Arrays;
 public class Bus extends Transport<DriverD> {
 
     public enum Capacity {
-        TINY("до 10 мест"),
-        SMALL("до 120 мест"),
-        MIDDLE("от 40 до 50 мест"),
-        BIG("от 50 до 80 мест"),
-        LARGE("от 100 до 120 мест");
+        TINY(0, 10),
+        SMALL(11, 25),
+        MIDDLE(16, 50),
+        BIG(51, 80),
+        LARGE(81, 120);
 
-        private final String capacity;
+        private final Integer lowerBound;
+        private final Integer upperBound;
 
-        Capacity (String capacity) {
-            this.capacity = capacity;
+        Capacity (Integer lowerBound, Integer upperBound) {
+            this.lowerBound = lowerBound;
+            this.upperBound = upperBound;
         }
 
-        public String getCapacity() {
-            return capacity;
-        }
-    /*public String toString() {
-            String low = "от" + lowerBound;
-            if (lowerBound == 0) {
-                low = "";
+        public static Capacity findByCapacity(Integer capacity) {
+            for (Capacity capacity1: values()) {
+                if (capacity1.getLowerBound() < capacity && capacity <= capacity1.getUpperBound()) {
+                    return capacity1;
+                }
             }
+            return null;
 
-            String upp = "до" + upperBound;
-            if (upperBound == 0) {
-                upp = "";
-            }
-            return "Вместимость - " + low + upp;
-*/
+        }
+
+        public Integer getUpperBound() {
+            return lowerBound;
+        }
+
+        public Integer getLowerBound() {
+            return upperBound;
+        }
+
+        public String toString () {
+            return "Вместимость: " +
+                    "<" + lowerBound +
+                    "> - <" + upperBound +
+                    ">";
+        }
     }
+
+    private Capacity capacity;
 
     public Bus (String brand,
                 String model,
                 double engineVolume, DriverD driverD)    {
         super(brand, model, engineVolume, driverD);
+    }
+
+    public String printType() {
+        if (capacity != null) {
+            return capacity.toString();
+        } else {
+            return "Данных по транспортному средству недостаточно";
+        }
+    }
+
+    public Capacity getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = Capacity.findByCapacity(capacity);
     }
 
     public void startMove() {
