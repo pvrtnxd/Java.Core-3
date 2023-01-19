@@ -7,14 +7,34 @@ import java.util.Arrays;
 
 public class Car extends Transport<DriverB> {
 
-    public enum bodyType {
-        sedan, hatchback, coupe, station_wagon,
-        SUV, crossover, pickup_truck, van, minivan
+    public enum BodyType {
+        SEDAN("седан"),
+        HATCHBACK("хетчбек"),
+        COUPE("купе"),
+        STATION_WAGON("универсал"),
+        SUV("внедорожник"),
+        CROSSOVER("кроссовер"),
+        PICKUP_TRUCK("пикап"),
+        VAN("фургон"),
+        MINIVAN("минивэн");
+
+        private final String bodyType;
+
+        BodyType (String bodyType) {
+        this.bodyType = bodyType;
+        }
+
+        public String getBodyType() {
+            return bodyType;
+        }
     }
 
-    public class bodyT {
-
-        public bodyType[] body = new bodyType[0];
+    public void printType(String bodyType) {
+        if (bodyType == null) {
+            System.out.println("Данных по транспортному средству недостаточно");
+        } else {
+            System.out.println("Кузов: " + bodyType);
+        }
     }
 
     public Car(String brand, String model, double engineVolume, DriverB driverB) {
@@ -51,58 +71,5 @@ public class Car extends Transport<DriverB> {
     }
 
 
-    public String[] getAllBodyType() {
-        String[] body = new String[bodyType.values().length];
-        for (int i = 0; i < body.length; i++) {
-            body[i] = bodyType.values()[i].name();
-
-        }
-        return body;
-
-    }
-
-    public void body(String bodyT) {
-        bodyType bd = bodyType.valueOf(bodyT);
-
-        bd = Arrays.copyOf(bd, bd.length + 1);
-        bd[bd.length - 1] = bd;
-
-    }
-
-    public void nameBodyType(String bodyT) {
-        System.out.println("Тип кузова " + bodyT);
-        bodyType bd = bodyType.valueOf(bodyT);
-
-        switch (bd) {
-            case sedan:
-                System.out.println("седан");
-                break;
-            case hatchback:
-                System.out.println("хетчбек");
-                break;
-            case coupe:
-                System.out.println("купе");
-                break;
-            case station_wagon:
-                System.out.println("универсал");
-                break;
-            case SUV:
-                System.out.println("внедорожник");
-                break;
-            case crossover:
-                System.out.println("кросоввер");
-                break;
-            case pickup_truck:
-                System.out.println("пикап");
-                break;
-            case van:
-                System.out.println("фургон");
-                break;
-            case minivan:
-                System.out.println("минивэн");
-                break;
-
-        }
-    }
 }
 

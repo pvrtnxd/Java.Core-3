@@ -9,11 +9,34 @@ import java.util.Arrays;
 
 public class Bus extends Transport<DriverD> {
 
-    public enum capacity {tiny,small,middle,bid, large }
+    public enum Capacity {
+        TINY("до 10 мест"),
+        SMALL("до 120 мест"),
+        MIDDLE("от 40 до 50 мест"),
+        BIG("от 50 до 80 мест"),
+        LARGE("от 100 до 120 мест");
 
-    public  class  capaC {
+        private final String capacity;
 
-        public capacity[] cc = new capacity[0];
+        Capacity (String capacity) {
+            this.capacity = capacity;
+        }
+
+        public String getCapacity() {
+            return capacity;
+        }
+    /*public String toString() {
+            String low = "от" + lowerBound;
+            if (lowerBound == 0) {
+                low = "";
+            }
+
+            String upp = "до" + upperBound;
+            if (upperBound == 0) {
+                upp = "";
+            }
+            return "Вместимость - " + low + upp;
+*/
     }
 
     public Bus (String brand,
@@ -49,53 +72,5 @@ public class Bus extends Transport<DriverD> {
 
         System.out.println("Максимальная скорость для автобуса - " + maxSpeed);
     }
-
-    public String [] getAllCapacity() {
-        String[] cc = new String[capacity.values().length];
-        for (int i = 0; i < cc.length; i++) {
-            cc[i] = capacity.values()[i].name();
-            
-        }
-        return  cc;
-
-    }
-
-    public void cap (String cc) {
-        capacity c = capacity.valueOf(cc);
-
-        c = Arrays.copyOf(c, c.length + 1);
-        c [ c.length - 1 ] = c;
-
-    }
-
-    public void allCapacity (String cc) {
-
-        System.out.println("Вместимость " + cc);
-        cc = cc.valueOf(cc);
-
-        capacity c = capacity.valueOf(cc);
-
-        switch (c) {
-            case tiny:
-                System.out.println("особо малая (до 10 мест)");
-                break;
-            case small:
-                System.out.println("малая (до 25)");
-                break;
-            case middle:
-                System.out.println("средняя (40-50)");
-                break;
-            case bid:
-                System.out.println("большая (60-80)");
-                break;
-            case large:
-                System.out.println("особо большая (100-120)");
-                break;
-
-        }
-    }
-
-
-
 
 }

@@ -7,12 +7,39 @@ import java.util.Arrays;
 
 public class Truck extends Transport<DriverC>{
 
-    public enum loadCapacity {N1,N2,N3}
+    public enum LoadCapacity {
+        N1("с полной массой до 3,5 тонн"),
+        N2("с полной массой свыше 3,5 до 12 тонн"),
+        N3("с полной массой свыше 12 тонн");
 
-    public  class  loadC {
+        private final String loadC;
 
-        public loadCapacity[] lc = new loadCapacity[0];
-    }
+        LoadCapacity (String loadC) {
+            this.loadC = loadC;
+        }
+
+        public String getLoad() {
+            return loadC;
+        }
+
+        /*public String toString() {
+            String low = "от" + lowerBound;
+            if (lowerBound == 0) {
+                low = "";
+            }
+
+            String upp = "до" + upperBound;
+            if (upperBound == 0) {
+                upp = "";
+            }
+            return "Грузоподъемность - " + low + upp + " тонн";
+*/
+        }
+
+
+
+
+
 
     public Truck (String brand,
                 String model,
@@ -49,44 +76,4 @@ public class Truck extends Transport<DriverC>{
         System.out.println("Максимальная скорость для грузовика - " + maxSpeed);
     }
 
-
-    public String [] getAllLoadCapacity() {
-        String[] lc = new String[loadCapacity.values().length];
-        for (int i = 0; i < lc.length; i++) {
-            lc[i] = loadCapacity.values()[i].name();
-
-        }
-        return  lc;
-
-    }
-
-    public void lCap (String lc) {
-        loadCapacity c = loadCapacity.valueOf(lc);
-
-        c = Arrays.copyOf(c, c.length + 1);
-        c [ c.length - 1 ] = c;
-
-    }
-
-    public void allLoadCapacity (String cc) {
-
-        System.out.println("Грезоподъемность " + cc);
-        cc = cc.valueOf(cc);
-
-        loadCapacity c = loadCapacity.valueOf(cc);
-
-        switch (c) {
-            case N1:
-                System.out.println("N1 (с полной массой до 3,5 тонн)");
-                break;
-            case N2:
-                System.out.println("N2 (с полной массой свыше 3,5 до 12 тонн)");
-                break;
-            case N3:
-                System.out.println("N3 (с полной массой свыше 12 тонн)");
-                break;
-
-
-        }
-    }
 }
