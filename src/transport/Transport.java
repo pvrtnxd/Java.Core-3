@@ -1,5 +1,7 @@
 package transport;
 
+import transport.driver.DriverB;
+
 import java.sql.Driver;
 
 public abstract class Transport <T extends Driver> implements Competing {
@@ -33,6 +35,10 @@ public abstract class Transport <T extends Driver> implements Competing {
         this.driver = driver;
     }
 
+    public void passDiagnostics(T driver) throws DriverInconsistencyException {
+        System.out.println(this.getBrand() + " " + this.getModel() + " не может пройти диагностику");
+    }
+
     public abstract void startMove();
 
     public abstract void finishMove();
@@ -58,5 +64,8 @@ public abstract class Transport <T extends Driver> implements Competing {
                 ", engineVolume=" + engineVolume +
                 ", driver=" + driver +
                 '}';
+    }
+
+    protected <T extends DriverB> void setDriver(T driver) {
     }
 }

@@ -3,9 +3,6 @@ package transport;
 
 import transport.driver.DriverD;
 
-import java.net.http.HttpResponse;
-import java.sql.Driver;
-import java.util.Arrays;
 
 public class Bus extends Transport<DriverD> {
 

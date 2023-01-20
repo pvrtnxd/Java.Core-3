@@ -3,7 +3,7 @@ package transport.driver;
 public abstract class Driver {
 
     private String name;
-    private  boolean hasDriverLicense;
+    private boolean hasDriverLicense;
     private int experienceYears;
 
     public Driver (String name,

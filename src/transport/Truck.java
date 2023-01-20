@@ -1,11 +1,11 @@
 package transport;
 
+import transport.driver.Driver;
 import transport.driver.DriverC;
 
-import java.sql.Driver;
-import java.util.Arrays;
 
-public class Truck extends Transport<DriverC>{
+public class Truck<T extends DriverC> extends Transport implements Competing {
+
 
     public enum LoadCapacity {
         N1(null, 3.5f),
@@ -13,7 +13,6 @@ public class Truck extends Transport<DriverC>{
         N3(12f, null);
         private final Float lowerBound;
         private final Float upperBound;
-
 
         LoadCapacity(Float lowerBound, Float upperBound) {
             this.lowerBound = lowerBound;
@@ -77,6 +76,24 @@ public class Truck extends Transport<DriverC>{
         } else {
             return "Данных по транспортному средству недостаточно";
         }
+    }
+
+    public void passDiagnostics(Driver driver) throws DriverInconsistencyException {
+        if (!driver.isHasDriverLicense()) {
+            throw new DriverInconsistencyException("Отсутствие водительского удостовирения");
+        }
+    }
+    public void addDriver (T driver) {
+        try {
+            passDiagnostics((Driver) driver);
+            super.setDriver(driver);
+        } catch (DriverInconsistencyException e) {
+            System.out.println("Водитель не может управлять " + this.getBrand()
+                    + " " + this.getModel() + " \n " +
+                    "Причина: " + e.getMessage());
+        }
+
+
     }
 
     public LoadCapacity getLoadCapacity() {

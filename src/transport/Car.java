@@ -1,11 +1,10 @@
 package transport;
 
-import transport.driver.Driver;
 import transport.driver.DriverB;
+import transport.driver.Driver;
 
-import java.util.Arrays;
 
-public class Car extends Transport<DriverB> {
+public class Car<T extends DriverB> extends Transport implements Competing {
 
     public enum BodyType {
         SEDAN("седан"),
@@ -57,6 +56,25 @@ public class Car extends Transport<DriverB> {
         super(brand, model, engineVolume, driverB);
     }
 
+    public void passDiagnostics(Driver driver) throws DriverInconsistencyException {
+        if (!driver.isHasDriverLicense()) {
+            throw new DriverInconsistencyException("Отсутствие водительского удостовирения");
+        }
+    }
+
+    public void addDriver(T driver) {
+        try {
+            passDiagnostics((Driver) driver);
+            super.setDriver(driver);
+        } catch (DriverInconsistencyException e) {
+            System.out.println("Водитель не может управлять " + this.getBrand()
+                    + " " + this.getModel() + " \n " +
+                    "Причина: " + e.getMessage());
+        }
+    }
+
+
+
     public BodyType getBodyType() {
         return bodyType;
     }
@@ -92,6 +110,8 @@ public class Car extends Transport<DriverB> {
 
         System.out.println("Максимальная скорость для автомобиля - " + maxSpeed);
     }
+
+
 
 
 }
