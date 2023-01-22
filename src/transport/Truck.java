@@ -4,7 +4,7 @@ import transport.driver.Driver;
 import transport.driver.DriverC;
 
 
-public class Truck<T extends DriverC> extends Transport implements Competing {
+public class Truck extends Transport<DriverC> {
 
 
     public enum LoadCapacity {
@@ -78,15 +78,15 @@ public class Truck<T extends DriverC> extends Transport implements Competing {
         }
     }
 
-    public void passDiagnostics(Driver driver) throws DriverInconsistencyException {
+    public void passDiagnostics(DriverC)  {
         if (!driver.isHasDriverLicense()) {
             throw new DriverInconsistencyException("Отсутствие водительского удостовирения");
         }
     }
-    public void addDriver (T driver) {
+    public void addDriver (DriverC) {
         try {
-            passDiagnostics((Driver) driver);
-            super.setDriver(driver);
+            passDiagnostics(DriverC);
+            super.setDriver(DriverC);
         } catch (DriverInconsistencyException e) {
             System.out.println("Водитель не может управлять " + this.getBrand()
                     + " " + this.getModel() + " \n " +

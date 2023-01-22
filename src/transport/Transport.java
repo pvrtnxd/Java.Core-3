@@ -3,6 +3,8 @@ package transport;
 import transport.driver.DriverB;
 
 import java.sql.Driver;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Transport <T extends Driver> implements Competing {
 
@@ -10,6 +12,7 @@ public abstract class Transport <T extends Driver> implements Competing {
     private final String model;
     private double engineVolume;
     private final T driver;
+    private final List<Mechanic> mechanics = new ArrayList<>();
 
     private static final String DEFAULT_VALUE = "default";
     private static final double DEFAULT_ENGINE_VOLUME = 1.5;
@@ -35,7 +38,7 @@ public abstract class Transport <T extends Driver> implements Competing {
         this.driver = driver;
     }
 
-    public void passDiagnostics(T driver) throws DriverInconsistencyException {
+    public void passDiagnostics(T driver)  {
         System.out.println(this.getBrand() + " " + this.getModel() + " не может пройти диагностику");
     }
 
@@ -56,6 +59,14 @@ public abstract class Transport <T extends Driver> implements Competing {
 
     public T getDriver() {return driver;}
 
+    public List<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public void addMechanic (Mechanic mechanic) {
+        mechanics.add(mechanic);
+    }
+
     @Override
     public String toString() {
         return "Transport{" +
@@ -66,6 +77,5 @@ public abstract class Transport <T extends Driver> implements Competing {
                 '}';
     }
 
-    protected <T extends DriverB> void setDriver(T driver) {
-    }
+
 }
