@@ -56,16 +56,16 @@ public class Car extends Transport<DriverB> {
         super(brand, model, engineVolume, driverB);
     }
 
-    public void passDiagnostics(DriverB) throws DriverInconsistencyException {
+    public void passDiagnostics(DriverB driver) throws DriverInconsistencyException {
         if (!driver.isHasDriverLicense()) {
             throw new DriverInconsistencyException("Отсутствие водительского удостовирения");
         }
     }
 
-    public void addDriver(DriverB) {
+    public void addDriver(DriverB driverB) {
         try {
-            passDiagnostics(DriverB);
-            super.setDriver(DriverB);
+            passDiagnostics(driverB);
+            super.setDriver(driverB);
         } catch (DriverInconsistencyException e) {
             System.out.println("Водитель не может управлять " + this.getBrand()
                     + " " + this.getModel() + " \n " +

@@ -78,15 +78,15 @@ public class Truck extends Transport<DriverC> {
         }
     }
 
-    public void passDiagnostics(DriverC)  {
+    public void passDiagnostics(DriverC driver)  {
         if (!driver.isHasDriverLicense()) {
             throw new DriverInconsistencyException("Отсутствие водительского удостовирения");
         }
     }
-    public void addDriver (DriverC) {
+    public void addDriver (DriverC driverC) {
         try {
-            passDiagnostics(DriverC);
-            super.setDriver(DriverC);
+            passDiagnostics(driverC);
+            super.setDriver(driverC);
         } catch (DriverInconsistencyException e) {
             System.out.println("Водитель не может управлять " + this.getBrand()
                     + " " + this.getModel() + " \n " +
