@@ -5,8 +5,7 @@ import transport.driver.DriverB;
 import transport.driver.DriverC;
 import transport.driver.DriverD;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main (String[] args) {
@@ -68,6 +67,17 @@ public class Main {
             printInfo(bus);
             printInfo(truck);
 
+
+            Map<Transport<?>, Mechanic> transportMechanicMap = new HashMap<>();
+            for (Transport<?> racer: racers) {
+
+                Set<Mechanic> mechanics = racer.getMechanics();
+
+                while (mechanics.iterator().hasNext()) {
+                    transportMechanicMap.put(racer,mechanics.iterator().next());
+                }
+            }
+
         }
     }
 
@@ -75,6 +85,10 @@ public class Main {
         System.out.println("Водитель " + transport.getDriver().getClass() + " управляет автомобилем" +transport.getBrand() +
                 "" + transport.getModel() + " и будет учасвтосвать в заезде");
     }
+
+
+
+
 
 
 }

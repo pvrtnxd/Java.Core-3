@@ -4,7 +4,9 @@ import transport.driver.DriverB;
 
 import java.sql.Driver;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class Transport <T extends Driver> implements Competing {
 
@@ -12,7 +14,7 @@ public abstract class Transport <T extends Driver> implements Competing {
     private final String model;
     private double engineVolume;
     private final T driver;
-    private final List<Mechanic> mechanics = new ArrayList<>();
+    private final Set<Mechanic> mechanics = new HashSet<>();
 
     private static final String DEFAULT_VALUE = "default";
     private static final double DEFAULT_ENGINE_VOLUME = 1.5;
@@ -59,7 +61,7 @@ public abstract class Transport <T extends Driver> implements Competing {
 
     public T getDriver() {return driver;}
 
-    public List<Mechanic> getMechanics() {
+    public Set<Mechanic> getMechanics() {
         return mechanics;
     }
 
