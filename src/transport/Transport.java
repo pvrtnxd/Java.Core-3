@@ -3,10 +3,7 @@ package transport;
 import transport.driver.DriverB;
 
 import java.sql.Driver;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Transport <T extends Driver> implements Competing {
 
@@ -38,6 +35,17 @@ public abstract class Transport <T extends Driver> implements Competing {
 
         setEngineVolume(engineVolume);
         this.driver = driver;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transport<?> transport = (Transport<?>) o;
+        return Double.compare(transport.engineVolume, engineVolume) == 0 && model.equals(transport.model) && brand.equals(transport.brand);
+    }
+
+    public int hashCode() {
+        return Objects.hash(model, brand, engineVolume);
     }
 
     public void passDiagnostics(T driver)  {

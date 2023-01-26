@@ -1,6 +1,8 @@
 package transport;
 
-public class Mechanic {
+import java.util.Objects;
+
+public class Mechanic < T extends Transport > {
 
     private String name;
     private String company;
@@ -20,6 +22,17 @@ public class Mechanic {
     public void maintenance () {
         System.out.println(name + " из компании " + company + " проводит техобслуживание");
 
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mechanic<?> mechanic = (Mechanic<?>) o;
+        return name.equals(mechanic.name) && company.equals(mechanic.company);
+    }
+
+    public int hashCode() {
+        return Objects.hash(name, company);
     }
 
     public void fixing () {
